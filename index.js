@@ -12,6 +12,10 @@ app.use(cors({
     origin: "*"
 }));
 
+
+app.get("/", (req,res) => {
+    res.send({Message: "Welcome to Grocery Mart Backend"});
+});
 app.use("/products", productRouter);
 app.use("/cart", cartRouter);
 
