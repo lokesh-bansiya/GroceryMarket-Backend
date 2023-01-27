@@ -3,10 +3,12 @@ require('dotenv').config();
 
 const AuthValidator = (req, res, next) => {
     const token = req.headers.authorization;
-    // res.send("token:",token);
+    console.log(token);
     if (token) {
         const decoded = jwt.verify(token, process.env.key);
-        if (decoded) {
+    console.log(decoded.userID);
+
+        if (decoded.userID) {
             next();
         } else {
             res.send({ Message: "Please Login First" });
