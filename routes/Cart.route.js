@@ -110,6 +110,21 @@ cartRouter.patch("/update/:id", async (req, res) => {
     }
 });
 
+
+// get by ID
+cartRouter.get("/getById/:id", async (req, res) => {
+    let id = req.params.id;
+    try {
+        const cartItem = await CartModel.findById({ "_id": id });
+        res.send(cartItem);
+    }
+    catch (err) {
+        console.log(err);
+        res.send({ Message: "Can't find product item by given id!" });
+    }
+});
+
+
 // only admin can add many cart items
 cartRouter.use(ValidationForProducts);
 
