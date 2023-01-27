@@ -6,15 +6,13 @@ const AuthValidator = (req, res, next) => {
     console.log(token);
     if (token) {
         const decoded = jwt.verify(token, process.env.key);
-    console.log(decoded.userID);
-
         if (decoded.userID) {
             next();
         } else {
-            res.send({ Message: "Please Login First" });
+            res.send({ Message: "Please Login First 1" });
         }
     } else {
-        res.send({ Message: "Please Login First" });
+        res.send({ Message: "Please Login First 2" });
     }
 };
 
