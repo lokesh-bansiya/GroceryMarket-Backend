@@ -10,10 +10,16 @@ productRouter.get("/", async (req, res) => {
     console.log(query)
     const price_low = req.query.price_low;
     const price_high = req.query.price_high;
+    const q_low = req.query.q_low;
+    const q_high = req.query.q_high;
 
     try {
         if (price_low && price_high) {
             let products = await ProductModel.find({ $and: [{ price: { $gt: price_low } }, { price: { $lt: price_high } }] });
+            res.send(products);
+        }
+        if (q_low && q_high) {
+            let products = await ProductModel.find({ $and: [{ quantity: { $gt: q_low } }, { quantity: { $lt: q_high } }] });
             res.send(products);
         }
         else if(query.category){
@@ -27,6 +33,10 @@ productRouter.get("/", async (req, res) => {
         else if (query.sortBy) {
             const sortedData = await ProductModel.find(query).sort({ price: query.sortBy });
             res.send(sortedData);
+        }
+        else if (query.q) {
+            const Data = await ProductModel.find({ name: { $regex: query.q, $options: "i" } });
+            res.send(Data);
         }
         else{
             const products = await ProductModel.find();
