@@ -33,7 +33,7 @@ productRouter.get("/", async (req, res) => {
       .limit(+limit)
       .skip((+page - 1) * limit);
 
-    return res.status(200).send({ products });
+    return res.status(200).send( products );
   } catch (error) {
     return res.status(404).send({ error: error.message });
   }
