@@ -6,9 +6,6 @@ const { ProductModel } = require("../models/Products.model");
 const cartRouter = express.Router();
 
 
-cartRouter.use(AuthValidator);
-
-
 cartRouter.get("/cartItems", async (req, res) => {
     const price_low = req.query.price_low;
     const price_high = req.query.price_high;
@@ -126,6 +123,7 @@ cartRouter.get("/getById/:id", async (req, res) => {
 
 
 // only admin can add many cart items
+cartRouter.use(AuthValidator);
 cartRouter.use(ValidationForProducts);
 
 // Insert many

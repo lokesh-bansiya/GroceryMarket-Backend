@@ -6,38 +6,6 @@ const {
 const { ProductModel } = require("../models/Products.model");
 const productRouter = express.Router();
 
-// productRouter.get("/", async (req, res) => {
-//   try {
-//     let { category, price, numReviews, sort, orderBy, limit, page } = req.query;
-//     const query = {};
-//     if (category) {
-//       query.category = category;
-//     }
-
-//     if (price) {
-//       let [min, max] = price.split(",");
-//       query.price = { $gte: min, $lte: max };
-//     }
-//     if (numReviews) {
-//       query.stars = +numReviews;
-//     }
-//     if (!limit) {
-//       limit = 20;
-//     }
-//     if (!page) {
-//       page = 1;
-//     }
-
-//     const products = await ProductModel.find(query)
-//       .sort({ [sort]: orderBy === "asc" ? 1 : orderBy === "desc" ? -1 : 0 })
-//       .limit(+limit)
-//       .skip((+page - 1) * limit);
-
-//     return res.status(200).send( products );
-//   } catch (error) {
-//     return res.status(404).send({ error: error.message });
-//   }
-// });
 
 productRouter.get("/", async (req, res) => {
   let query = req.query;
