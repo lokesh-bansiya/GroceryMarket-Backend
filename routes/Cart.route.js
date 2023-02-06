@@ -52,7 +52,6 @@ cartRouter.get("/q", async (req, res) => {
 });
 
 // Validate users can do this only
-cartRouter.use(AuthValidator);
 
 // cartRouter.post("/addcartItem/:id", async (req, res) => {
 //     const id = req.params.id;
@@ -86,6 +85,7 @@ cartRouter.use(AuthValidator);
 
 
 // relationship for users cart items
+cartRouter.use(AuthValidator);
 cartRouter.use(AddToCartValidation);
 
 
@@ -105,7 +105,6 @@ cartRouter.post("/addcartItem", async (req, res) => {
 
 cartRouter.delete("/delete/:id", async (req, res) => {
     const id = req.params.id;
-
     try {
         await CartModel.findByIdAndDelete({ "_id": id });
         res.send({ Message: "Cart Item Deleted!" });
