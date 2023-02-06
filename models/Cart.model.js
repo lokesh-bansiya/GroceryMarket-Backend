@@ -12,7 +12,8 @@ const cartSchema = mongoose.Schema({
   packet: String,
   offers: String,
   isavailable: Boolean,
-  quantity: Number
+  quantity: Number,
+  cartID: String,
 });
 
 const CartModel = mongoose.model("cartItems", cartSchema);

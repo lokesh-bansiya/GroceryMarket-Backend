@@ -1,10 +1,10 @@
 const express = require("express");
+const { AddToCartValidation } = require("../middlewares/AddToCartValidation.middleware");
 const { AuthValidator } = require("../middlewares/Auth.middleware");
 const { ValidationForProducts } = require("../middlewares/ValidationForProducts");
 const { CartModel } = require("../models/Cart.model");
 const { ProductModel } = require("../models/Products.model");
 const cartRouter = express.Router();
-
 
 cartRouter.get("/cartItems", async (req, res) => {
     const price_low = req.query.price_low;
@@ -51,26 +51,48 @@ cartRouter.get("/q", async (req, res) => {
     }
 });
 
+// Validate users can do this only
+cartRouter.use(AuthValidator);
 
-cartRouter.post("/addcartItem/:id", async (req, res) => {
-    const id = req.params.id;
-    const item = await ProductModel.findById({ "_id": id });
+// cartRouter.post("/addcartItem/:id", async (req, res) => {
+//     const id = req.params.id;
+//     const item = await ProductModel.findById({ "_id": id });
 
+//     try {
+//         const cartItem = new CartModel({
+//             brand: item.brand,
+//             name: item.name,
+//             weight: item.weight,
+//             price: item.price,
+//             mrp: item.mrp,
+//             ImgSrc: item.ImgSrc,
+//             category: item.category,
+//             sasta: item.sasta,
+//             packet: item.packet,
+//             offers: item.offers,
+//             isavailable: item.isavailable,
+//             quantity: item.quantity,
+//             cartId: req.body
+//         });
+//         await cartItem.save();
+//         res.send({ Message: "Item added to cart successfully!" });
+//     }
+//     catch (err) {
+//         console.log(err);
+//         res.send({ Message: "Item can't be added to cart!" });
+//     }
+// });
+
+
+
+// relationship for users cart items
+cartRouter.use(AddToCartValidation);
+
+
+cartRouter.post("/addcartItem", async (req, res) => {
+    const payload = req.body;
     try {
-        const cartItem = new CartModel({
-            brand: item.brand,
-            name: item.name,
-            weight: item.weight,
-            price: item.price,
-            mrp: item.mrp,
-            ImgSrc: item.ImgSrc,
-            category: item.category,
-            sasta: item.sasta,
-            packet: item.packet,
-            offers: item.offers,
-            isavailable: item.isavailable,
-            quantity: item.quantity
-        });
+        const cartItem = new CartModel(payload);
         await cartItem.save();
         res.send({ Message: "Item added to cart successfully!" });
     }
@@ -123,7 +145,6 @@ cartRouter.get("/getById/:id", async (req, res) => {
 
 
 // only admin can add many cart items
-cartRouter.use(AuthValidator);
 cartRouter.use(ValidationForProducts);
 
 // Insert many

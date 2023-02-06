@@ -1,11 +1,14 @@
 const jwt = require("jsonwebtoken");
 require('dotenv').config();
 
-const AuthValidator = (req, res, next) => {
+const AddToCartValidation = (req, res, next) => {
     const token = req.headers.authorization;
     console.log(token);
     const decoded = jwt.verify(token, process.env.key);
-    if (decoded.userID) {
+    console.log("decoded:", decoded);
+
+    if (req.method === "POST" && decoded) {
+        req.body.cartID = decoded.userID;
         next();
     } 
     else {
@@ -13,4 +16,4 @@ const AuthValidator = (req, res, next) => {
     }
 };
 
-module.exports = { AuthValidator };
+module.exports = { AddToCartValidation };

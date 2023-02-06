@@ -19,27 +19,33 @@ productRouter.get("/", async (req, res) => {
         $and: [{ price: { $gt: price_low } }, { price: { $lt: price_high } }],
       });
       res.send(products);
-    } else if (query.category) {
+    } 
+    else if (query.category) {
       const products = await ProductModel.find({ category: query.category });
       res.send(products);
-    } else if (query.brand) {
+    } 
+    else if (query.brand) {
       const products = await ProductModel.find({ brand: query.brand });
       res.send(products);
-    } else if (query.sortBy) {
+    } 
+    else if (query.sortBy) {
       const sortedData = await ProductModel.find(query).sort({
         price: query.sortBy,
       });
       res.send(sortedData);
-    } else if (query.q) {
+    } 
+    else if (query.q) {
       const Data = await ProductModel.find({
         name: { $regex: query.q, $options: "i" },
       });
       res.send(Data);
-    } else {
+    } 
+    else {
       const products = await ProductModel.find();
       res.send(products);
     }
-  } catch (err) {
+  } 
+  catch (err) {
     console.log(err);
     res.send({ Message: "Can't find products!" });
   }
@@ -55,7 +61,8 @@ productRouter.get("/quantity", async (req, res) => {
         $and: [{ quantity: { $gt: q_low } }, { quantity: { $lt: q_high } }],
       });
       res.send(products);
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err);
       res.send({ message: "Can't find products in given quantities range!" });
     }
@@ -70,7 +77,8 @@ productRouter.get("/getById/:id", async (req, res) => {
   try {
     const productItem = await ProductModel.findById({ _id: id });
     res.send(productItem);
-  } catch (err) {
+  } 
+  catch (err) {
     console.log(err);
     res.send({ Message: "Can't find product item by given id!" });
   }
