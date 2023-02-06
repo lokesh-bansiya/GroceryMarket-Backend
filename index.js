@@ -26,7 +26,7 @@ app.use("/users", userRouter);
 app.listen(process.env.port, async () => {
     try {
         await connection;
-        console.log("Connected to the Database of Wondermart");
+        console.log("Connected to the Database of GroceryMart");
     }
     catch (err) {
         console.log(err);
