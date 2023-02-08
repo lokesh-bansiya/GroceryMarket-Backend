@@ -97,11 +97,12 @@ productRouter.patch("/update/:id", async (req, res) => {
   }
 });
 
+
 // validate users can do these operations only
 productRouter.use(AuthValidator);
-
 // Validation these operation could only be done by admin only
 productRouter.use(ValidationForProducts);
+
 
 // Insert many
 productRouter.post("/addmany", async (req, res) => {

@@ -8,10 +8,10 @@ const AuthValidator = (req, res, next) => {
         if (decoded) {
             next();
         } else {
-            res.send({ Message: "Please Login First 1" });
+            res.send({ Message: "Please Login First" });
         }
     } else {
-        res.send({ Message: "Please Login First 2" });
+        res.send({ Message: "Please Login First" });
     }
 };
 
