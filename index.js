@@ -5,6 +5,7 @@ const { userRouter } = require("./routes/User.route");
 const { productRouter } = require("./routes/Product.route");
 const { cartRouter } = require("./routes/Cart.route");
 const { Validator } = require("./middlewares/Validator.middleware");
+const { orderRouter } = require("./routes/Order.route");
 
 const app = express();
 app.use(express.json());
@@ -12,12 +13,13 @@ app.use(cors({
     origin: "*"
 }));
 
-
 app.get("/", (req,res) => {
     res.send({Message: "Welcome to Grocery Mart Backend"});
 });
+
 app.use("/products", productRouter);
 app.use("/cart", cartRouter);
+app.use("/order", orderRouter);
 
 // Validation for all fields
 app.use(Validator);
