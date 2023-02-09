@@ -20,6 +20,18 @@ productRouter.get("/", async (req, res) => {
       });
       res.send(products);
     } 
+    else if (price_low) {
+      let products = await ProductModel.find({
+        $and: [{ price: { $lt: price_low } }],
+      });
+      res.send(products);
+    } 
+    else if (price_high) {
+      let products = await ProductModel.find({
+        $and: [{ price: { $gt: price_high } }],
+      });
+      res.send(products);
+    } 
     else if (query.category) {
       const products = await ProductModel.find({ category: query.category });
       res.send(products);
