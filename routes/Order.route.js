@@ -38,7 +38,7 @@ orderRouter.post("/addOrderItem", async (req, res) => {
 orderRouter.delete("/delete/:id", async (req, res) => {
     const id = req.params.id;
     try {
-        await CartModel.findByIdAndDelete({ "_id": id });
+        await OrdereModel.findByIdAndDelete({ "_id": id });
         res.send({ Message: "Ordered Item Deleted!" });
     } catch (error) {
         console.log(err);
