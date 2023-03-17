@@ -7,122 +7,53 @@ const { ProductModel } = require("../models/Products.model");
 const productRouter = express.Router();
 
 
-// productRouter.get("/", async (req, res) => {
-//   let query = req.query;
-//   console.log(query);
-//   const price_low = req.query.price_low;
-//   const price_high = req.query.price_high;
-  
-//   try {
-//     if (price_low && price_high) {
-//       let products = await ProductModel.find({
-//         $and: [{ price: { $gt: price_low } }, { price: { $lt: price_high } }],
-//       });
-//       res.send(products);
-//     } 
-//     else if (price_low) {
-//       let products = await ProductModel.find({
-//         $and: [{ price: { $lt: price_low } }],
-//       });
-//       res.send(products);
-//     } 
-//     else if (price_high) {
-//       let products = await ProductModel.find({
-//         $and: [{ price: { $gt: price_high } }],
-//       });
-//       res.send(products);
-//     } 
-//     else if (query.category) {
-//       const products = await ProductModel.find({ category: query.category });
-//       res.send(products);
-//     } 
-//     else if (query.brand) {
-//       const products = await ProductModel.find({ brand: query.brand });
-//       res.send(products);
-//     } 
-//     else if (query.sortBy) {
-//       const sortedData = await ProductModel.find(query).sort({
-//         price: query.sortBy,
-//       });
-//       res.send(sortedData);
-//     } 
-//     else if (query.q) {
-//       const Data = await ProductModel.find({
-//         name: { $regex: query.q, $options: "i" },
-//       });
-//       res.send(Data);
-//     } 
-//     else {
-//       const products = await ProductModel.find();
-//       res.send(products);
-//     }
-//   } 
-//   catch (err) {
-//     console.log(err);
-//     res.send({ Message: "Can't find products!" });
-//   }
-// });
-
-
-
-
-
 productRouter.get("/", async (req, res) => {
   let query = req.query;
   console.log(query);
   const price_low = req.query.price_low;
   const price_high = req.query.price_high;
-  const perPage = 12;
-  const page = req.query.page;
-
+  
   try {
     if (price_low && price_high) {
       let products = await ProductModel.find({
         $and: [{ price: { $gt: price_low } }, { price: { $lt: price_high } }],
-      }).skip(perPage * page).limit(perPage);
+      });
       res.send(products);
     } 
     else if (price_low) {
       let products = await ProductModel.find({
         $and: [{ price: { $lt: price_low } }],
-      }).skip(perPage * page).limit(perPage);
+      });
       res.send(products);
     } 
     else if (price_high) {
       let products = await ProductModel.find({
         $and: [{ price: { $gt: price_high } }],
-      }).skip(perPage * page).limit(perPage);
+      });
       res.send(products);
     } 
     else if (query.category) {
-      const products = await ProductModel.find({ category: query.category }).skip(perPage * page).limit(perPage);
+      const products = await ProductModel.find({ category: query.category });
       res.send(products);
     } 
     else if (query.brand) {
-      const products = await ProductModel.find({ brand: query.brand }).skip(perPage * page).limit(perPage);
+      const products = await ProductModel.find({ brand: query.brand });
       res.send(products);
     } 
     else if (query.sortBy) {
       const sortedData = await ProductModel.find(query).sort({
         price: query.sortBy,
-      }).skip(perPage * page).limit(perPage);
+      });
       res.send(sortedData);
     } 
     else if (query.q) {
-      const Data = await ProductModel.find({
-        name: { $regex: query.q, $options: "i" },
-      }).skip(perPage * page).limit(perPage);
-      res.send(Data);
-    } 
-    else if (!page) {
       const Data = await ProductModel.find({
         name: { $regex: query.q, $options: "i" },
       });
       res.send(Data);
     } 
     else {
-      const products = await ProductModel.find().skip(perPage * page).limit(perPage);
-      console.log(products.length);
+      const products = await ProductModel.find();
       res.send(products);
     }
   } 
@@ -131,8 +62,6 @@ productRouter.get("/", async (req, res) => {
     res.send({ Message: "Can't find products!" });
   }
 });
-
-
 
 
 // Quantity range
