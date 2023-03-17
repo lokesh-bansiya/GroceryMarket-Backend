@@ -11,6 +11,7 @@
 
   - Get products by a range of price:- `baseurl` + `/products?price_low=300&&price_high=700`
   - Get products by a range of Quantity:- `baseurl` + `/products?q_low=3&&q_high=7`
+  - Paggination:- `baseurl` + `/products?page=2`
 
   - Get products by any query:- `baseurl` + `/products?brand=Amul` 
   - Get products by any query:- `baseurl` + `/products?category=bakery` 
