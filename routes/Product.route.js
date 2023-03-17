@@ -72,7 +72,7 @@ productRouter.get("/", async (req, res) => {
   console.log(query);
   const price_low = req.query.price_low;
   const price_high = req.query.price_high;
-  const perPage = 10;
+  const perPage = 12;
   const page = req.query.page;
 
   try {
