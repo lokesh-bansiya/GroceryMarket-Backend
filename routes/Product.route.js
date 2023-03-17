@@ -114,6 +114,12 @@ productRouter.get("/", async (req, res) => {
       }).skip(perPage * page).limit(perPage);
       res.send(Data);
     } 
+    else if (!page) {
+      const Data = await ProductModel.find({
+        name: { $regex: query.q, $options: "i" },
+      });
+      res.send(Data);
+    } 
     else {
       const products = await ProductModel.find().skip(perPage * page).limit(perPage);
       console.log(products.length);
